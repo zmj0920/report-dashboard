@@ -1,0 +1,458 @@
+/* AeroDashboard.css */
+.aero-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #050b14;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Base Grid */
+  background-image: 
+    linear-gradient(0deg, rgba(0, 60, 100, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 60, 100, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  
+  color: #fff;
+  font-family: "Microsoft YaHei", sans-serif;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+/* Hide Scrollbar */
+.aero-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Particle Effect Layer */
+.aero-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    /* Main Glow */
+    radial-gradient(circle at 50% 0%, rgba(0, 100, 255, 0.15), transparent 70%),
+    /* Particles */
+    radial-gradient(2px 2px at 100px 100px, rgba(0, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 200px 200px, rgba(255, 0, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 300px 50px, rgba(255, 255, 0, 0.8), transparent),
+    radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 150px 250px, rgba(0, 255, 255, 0.9), transparent),
+    radial-gradient(1.5px 1.5px at 350px 150px, rgba(100, 200, 255, 0.8), transparent);
+  background-size: 100% 100%, 350px 350px, 250px 250px, 450px 450px, 200px 200px, 300px 300px, 400px 400px;
+  animation: particleMove 60s linear infinite;
+}
+
+/* Perspective Grid at Bottom */
+.aero-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30vh;
+  background: 
+    linear-gradient(transparent 0%, rgba(0, 100, 255, 0.1) 100%),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  transform: perspective(500px) rotateX(60deg) translateY(100px) scale(2);
+  transform-origin: bottom center;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* Decorative Rings */
+.aero-decoration-ring {
+  position: fixed;
+  border: 1px solid rgba(0, 170, 255, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.aero-decoration-ring.one {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  left: -200px;
+  border-top-color: rgba(0, 255, 255, 0.4);
+  border-right-color: rgba(0, 100, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  animation: rotateRight 40s linear infinite;
+}
+.aero-decoration-ring.two {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  right: -100px;
+  border-bottom-color: rgba(255, 0, 255, 0.4);
+  border-left-color: rgba(100, 0, 255, 0.4);
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.1);
+  animation: rotateLeft 30s linear infinite;
+}
+
+@keyframes rotateRight { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes rotateLeft { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+@keyframes particleMove {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 0 0, 350px 350px, -250px 250px, 450px -450px, -200px 200px, 300px 300px, -400px -400px; }
+}
+
+/* Ensure content is above background */
+.aero-header, 
+.aero-top-stats, 
+.aero-middle-section, 
+.aero-bottom-section {
+  position: relative;
+  z-index: 1;
+}
+
+.aero-header {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.aero-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 0 0 rgba(255,0,0,0.5), -2px 0 0 rgba(0,255,255,0.5), 0 0 20px #00aaff;
+  letter-spacing: 2px;
+  display: inline-block;
+  padding: 15px 60px;
+  background: 
+    linear-gradient(90deg, transparent, rgba(0, 100, 255, 0.2), transparent),
+    linear-gradient(to bottom, #00ffff, #00aaff) left top / 20px 2px no-repeat,
+    linear-gradient(to bottom, #ff00ff, #aa00ff) right top / 20px 2px no-repeat,
+    linear-gradient(to bottom, #00ffff, #00aaff) left bottom / 20px 2px no-repeat,
+    linear-gradient(to bottom, #ff00ff, #aa00ff) right bottom / 20px 2px no-repeat;
+  position: relative;
+}
+/* Title decorative brackets */
+.aero-title::before, .aero-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 20px;
+  border: 2px solid #00aaff;
+  transform: translateY(-50%);
+}
+.aero-title::before { left: 0; border-right: 0; border-color: #00ffff; box-shadow: -2px 0 10px #00ffff; }
+.aero-title::after { right: 0; border-left: 0; border-color: #ff00ff; box-shadow: 2px 0 10px #ff00ff; }
+
+/* Top Stats Row */
+.aero-top-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.aero-stat-card {
+  background: rgba(6, 22, 45, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 170, 255, 0.6);
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 30px rgba(0, 100, 255, 0.2) inset, 0 10px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Tech Corners for Cards */
+.aero-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 4px;
+  padding: 2px;
+  background: 
+    linear-gradient(135deg, #00ffff 10px, transparent 0) top left,
+    linear-gradient(225deg, #ff00ff 10px, transparent 0) top right,
+    linear-gradient(45deg, #00ffff 10px, transparent 0) bottom left,
+    linear-gradient(315deg, #ff00ff 10px, transparent 0) bottom right;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Scanline effect */
+.aero-stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 255, 0.05) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aero-stat-icon {
+  font-size: 24px;
+  color: #00ffff;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 5px #00ffff);
+  z-index: 1;
+}
+
+.aero-stat-label {
+  font-size: 16px;
+  color: #8abde6;
+  margin-bottom: 5px;
+  z-index: 1;
+}
+
+.aero-stat-value {
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  z-index: 1;
+}
+
+/* Specific Card Accents */
+.aero-stat-card:nth-child(1) .aero-stat-icon { color: #00ffff; filter: drop-shadow(0 0 8px #00ffff); }
+.aero-stat-card:nth-child(1) .aero-stat-value { text-shadow: 0 0 15px rgba(0, 255, 255, 0.8); }
+
+.aero-stat-card:nth-child(2) .aero-stat-icon { color: #ff00ff; filter: drop-shadow(0 0 8px #ff00ff); }
+.aero-stat-card:nth-child(2) .aero-stat-value { text-shadow: 0 0 15px rgba(255, 0, 255, 0.8); }
+
+.aero-stat-card:nth-child(3) .aero-stat-icon { color: #ffcc00; filter: drop-shadow(0 0 8px #ffcc00); }
+.aero-stat-card:nth-child(3) .aero-stat-value { text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); }
+
+/* Middle Section */
+.aero-middle-section {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex: 1; /* Allow middle section to grow */
+}
+
+.aero-panel {
+  background: rgba(6, 22, 45, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 170, 255, 0.4);
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 100, 255, 0.15);
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* Panel Tech Decoration */
+.aero-panel::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10px; right: 10px; height: 1px;
+  background: linear-gradient(90deg, transparent, #00aaff, transparent);
+}
+.aero-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 10px; right: 10px; height: 1px;
+  background: linear-gradient(90deg, transparent, #00aaff, transparent);
+}
+
+.aero-panel-title {
+  font-size: 16px;
+  color: #a6d4ff;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.aero-panel-title::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #00aaff;
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px #00aaff;
+  border-radius: 0;
+}
+
+/* Progress Bars */
+.aero-progress-item {
+  margin-bottom: 20px;
+}
+
+.aero-progress-label {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.aero-progress-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.aero-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ffff, #0066ff);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+  position: relative;
+}
+.aero-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; width: 2px;
+  background: #fff;
+  box-shadow: 0 0 5px #fff;
+}
+
+.aero-progress-value {
+  float: right;
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+/* List Items */
+.aero-list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #cceeff;
+  font-size: 14px;
+  border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
+  padding-bottom: 8px;
+}
+.aero-list-item:last-child { border-bottom: none; }
+
+.aero-list-icon {
+  margin-right: 10px;
+  color: #00ffff;
+  filter: drop-shadow(0 0 2px #00ffff);
+}
+
+.aero-highlight {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: auto;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+}
+
+/* Bottom Section */
+.aero-bottom-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.aero-wide-panel {
+  background: rgba(6, 22, 45, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 170, 255, 0.4);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 25px rgba(0, 100, 255, 0.15);
+}
+/* Corner accents for wide panel */
+.aero-wide-panel::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; width: 20px; height: 20px;
+  border-top: 2px solid #00aaff;
+  border-left: 2px solid #00aaff;
+}
+.aero-wide-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; right: -2px; width: 20px; height: 20px;
+  border-bottom: 2px solid #00aaff;
+  border-right: 2px solid #00aaff;
+}
+
+.aero-stats-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.aero-stat-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #cceeff;
+  background: rgba(0, 170, 255, 0.05);
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 170, 255, 0.1);
+}
+
+.aero-analysis {
+  margin-top: 20px;
+  width: 100%;
+  border-top: 1px solid rgba(0, 170, 255, 0.2);
+  padding-top: 20px;
+}
+
+.aero-analysis-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.aero-analysis-list li {
+  margin-bottom: 10px;
+  color: #a6d4ff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.check-icon {
+  color: #ffaa00;
+  text-shadow: 0 0 5px #ffaa00;
+}

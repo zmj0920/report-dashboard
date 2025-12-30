@@ -34,19 +34,24 @@ const Report = () => {
       left: 'center',
       textStyle: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: '700',
+        color: '#333'
       }
     },
     tooltip: {
       trigger: 'axis',
       axisPointer: {
         type: 'shadow'
-      }
+      },
+      backgroundColor: 'rgba(255,255,255,0.98)',
+      borderColor: '#ececec',
+      borderWidth: 1,
+      textStyle: { color: '#333' }
     },
     grid: {
       left: '3%',
       right: '4%',
-      bottom: '3%',
+      bottom: '6%',
       containLabel: true
     },
     xAxis: {
@@ -54,12 +59,18 @@ const Report = () => {
       data: ['名片夹点击', '我的名片点击', '稿件新增', '车辆预约', '会议室预约'],
       axisLabel: {
         interval: 0,
-        rotate: 15
-      }
+        rotate: 15,
+        color: '#6b6f76'
+      },
+      axisLine: { lineStyle: { color: '#e9e9e9' } },
+      splitLine: { show: false }
     },
     yAxis: {
       type: 'value',
-      name: '次数'
+      name: '次数',
+      axisLabel: { color: '#6b6f76' },
+      axisLine: { lineStyle: { color: '#e9e9e9' } },
+      splitLine: { lineStyle: { color: '#f0f0f0' } }
     },
     series: [
       {
@@ -85,9 +96,11 @@ const Report = () => {
             ]
           }
         },
+        barBorderRadius: [8, 8, 0, 0],
         label: {
           show: true,
-          position: 'top'
+          position: 'top',
+          color: '#333'
         }
       }
     ]
@@ -98,41 +111,60 @@ const Report = () => {
     title: {
       text: '审核统计对比',
       left: 'center',
+      top: 8,
       textStyle: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: '700',
+        color: '#333'
       }
     },
     tooltip: {
       trigger: 'axis',
       axisPointer: {
         type: 'shadow'
-      }
+      },
+      backgroundColor: 'rgba(255,255,255,0.98)',
+      borderColor: '#ececec',
+      borderWidth: 1,
+      textStyle: { color: '#333' }
     },
     legend: {
       data: ['审核次数', '审核平均用时（天）'],
-      top: 30
+      bottom: 12,
+      left: 'center',
+      itemGap: 18,
+      icon: 'roundRect',
+      itemWidth: 14,
+      itemHeight: 8,
+      textStyle: { color: '#6b6f76', padding: [2, 6] }
     },
     grid: {
       left: '3%',
-      right: '4%',
-      bottom: '3%',
+      right: '6%',
+      bottom: '18%',
       containLabel: true
     },
     xAxis: {
       type: 'category',
-      data: ['车辆预约审核', '会议室预约审核', '稿件审核']
+      data: ['车辆预约审核', '会议室预约审核', '稿件审核'],
+      axisLabel: { color: '#6b6f76' },
+      axisLine: { lineStyle: { color: '#e9e9e9' } },
+      splitLine: { show: false }
     },
     yAxis: [
       {
         type: 'value',
         name: '审核次数',
-        position: 'left'
+        position: 'left',
+        axisLabel: { color: '#6b6f76' },
+        splitLine: { lineStyle: { color: '#f0f0f0' } }
       },
       {
         type: 'value',
         name: '平均用时（天）',
-        position: 'right'
+        position: 'right',
+        axisLabel: { color: '#6b6f76' },
+        splitLine: { show: false }
       }
     ],
     series: [
@@ -157,9 +189,11 @@ const Report = () => {
             ]
           }
         },
+        barBorderRadius: [8, 8, 0, 0],
         label: {
           show: true,
-          position: 'top'
+          position: 'top',
+          color: '#333'
         }
       },
       {
@@ -184,10 +218,12 @@ const Report = () => {
             ]
           }
         },
+        barBorderRadius: [8, 8, 0, 0],
         label: {
           show: true,
           position: 'top',
-          formatter: '{c} 天'
+          formatter: '{c} 天',
+          color: '#333'
         }
       }
     ]
@@ -218,7 +254,7 @@ const Report = () => {
 
       <div className="report-content">
         {/* 核心指标统计卡片 */}
-        <Row gutter={[16, 16]} style={{ marginBottom: '24px' }}>
+        <Row gutter={[12, 12]} style={{ marginBottom: '12px' }}>
           <Col xs={12} sm={12} md={6}>
             <Card className="stat-card" bordered={false}>
               <Statistic
@@ -262,7 +298,7 @@ const Report = () => {
         </Row>
 
         {/* 业务功能统计 */}
-        <Row gutter={[16, 16]} style={{ marginBottom: '24px' }}>
+        <Row gutter={[12, 12]} style={{ marginBottom: '12px' }}>
           <Col xs={12} sm={8} md={6}>
             <Card className="stat-card" bordered={false}>
               <Statistic
@@ -306,74 +342,71 @@ const Report = () => {
         </Row>
 
         {/* 审核统计 */}
-        <Row gutter={[16, 16]} style={{ marginBottom: '24px' }}>
-          <Col xs={12} sm={8} md={6}>
+        <Row gutter={[12, 12]} style={{ marginBottom: '12px' }}>
+          <Col xs={24} sm={12} md={8}>
             <Card className="stat-card" bordered={false}>
-              <Statistic
-                title="车辆预约审核"
-                value={reportData.vehicleApprovals}
-                prefix={<CheckCircleOutlined />}
-                suffix="次"
-              />
+              <div className="stat-group">
+                <Statistic
+                  title="车辆预约审核"
+                  value={reportData.vehicleApprovals}
+                  prefix={<CheckCircleOutlined />}
+                  suffix="次"
+                />
+                <div className="stat-divider" />
+                <Statistic
+                  title="平均用时"
+                  value={reportData.vehicleApprovalAvgTime}
+                  prefix={<ClockCircleOutlined />}
+                  suffix="天"
+                  precision={2}
+                />
+              </div>
             </Card>
           </Col>
-          <Col xs={12} sm={8} md={6}>
+          <Col xs={24} sm={12} md={8}>
             <Card className="stat-card" bordered={false}>
-              <Statistic
-                title="车辆审核平均用时"
-                value={reportData.vehicleApprovalAvgTime}
-                prefix={<ClockCircleOutlined />}
-                suffix="天"
-                precision={2}
-              />
+              <div className="stat-group">
+                <Statistic
+                  title="会议室审核"
+                  value={reportData.meetingRoomApprovals}
+                  prefix={<CheckCircleOutlined />}
+                  suffix="次"
+                />
+                <div className="stat-divider" />
+                <Statistic
+                  title="平均用时"
+                  value={reportData.meetingRoomApprovalAvgTime}
+                  prefix={<ClockCircleOutlined />}
+                  suffix="天"
+                  precision={1}
+                />
+              </div>
             </Card>
           </Col>
-          <Col xs={12} sm={8} md={6}>
+          <Col xs={24} sm={12} md={8}>
             <Card className="stat-card" bordered={false}>
-              <Statistic
-                title="会议室审核"
-                value={reportData.meetingRoomApprovals}
-                prefix={<CheckCircleOutlined />}
-                suffix="次"
-              />
-            </Card>
-          </Col>
-          <Col xs={12} sm={8} md={6}>
-            <Card className="stat-card" bordered={false}>
-              <Statistic
-                title="会议室审核平均用时"
-                value={reportData.meetingRoomApprovalAvgTime}
-                prefix={<ClockCircleOutlined />}
-                suffix="天"
-                precision={1}
-              />
-            </Card>
-          </Col>
-          <Col xs={12} sm={8} md={6}>
-            <Card className="stat-card" bordered={false}>
-              <Statistic
-                title="稿件审核"
-                value={reportData.articleApprovals}
-                prefix={<CheckCircleOutlined />}
-                suffix="次"
-              />
-            </Card>
-          </Col>
-          <Col xs={12} sm={8} md={6}>
-            <Card className="stat-card" bordered={false}>
-              <Statistic
-                title="稿件审核平均用时"
-                value={reportData.articleApprovalAvgTime}
-                prefix={<ClockCircleOutlined />}
-                suffix="天"
-                precision={1}
-              />
+              <div className="stat-group">
+                <Statistic
+                  title="稿件审核"
+                  value={reportData.articleApprovals}
+                  prefix={<CheckCircleOutlined />}
+                  suffix="次"
+                />
+                <div className="stat-divider" />
+                <Statistic
+                  title="平均用时"
+                  value={reportData.articleApprovalAvgTime}
+                  prefix={<ClockCircleOutlined />}
+                  suffix="天"
+                  precision={1}
+                />
+              </div>
             </Card>
           </Col>
         </Row>
 
         {/* 图表展示 */}
-        <Row gutter={[24, 24]}>
+        <Row gutter={[16, 16]}>
           <Col xs={24} lg={12}>
             <Card 
               className="chart-card"
@@ -381,7 +414,7 @@ const Report = () => {
             >
               <ReactECharts 
                 option={usageChartOption} 
-                style={{ height: '400px' }}
+                style={{ height: '320px' }}
                 opts={{ renderer: 'svg' }}
               />
             </Card>
@@ -393,7 +426,7 @@ const Report = () => {
             >
               <ReactECharts 
                 option={approvalChartOption} 
-                style={{ height: '400px' }}
+                style={{ height: '320px' }}
                 opts={{ renderer: 'svg' }}
               />
             </Card>
