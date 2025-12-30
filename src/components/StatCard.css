@@ -1,0 +1,33 @@
+.stat-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card-content {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-card-icon {
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.stat-card-info {
+  flex: 1;
+}
+
+.stat-card-title {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-card-value {
+  margin-bottom: 4px !important;
+}
